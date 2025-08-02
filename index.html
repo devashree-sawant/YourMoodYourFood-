@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TasteMood | Your Mood, Your Menu</title>
+
+    <!-- External Fonts & Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles/loader.css" />
+    <link rel="stylesheet" href="styles/mood.css" />
+    <link rel="stylesheet" href="styles/effects.css" />
+
+    <script>
+        const video = document.getElementById('background-video');
+        window.addEventListener('scroll', () => {
+            const scroll = window.scrollY;
+            video.style.transform = `translateY(${scroll * 0.3}px)`;
+        });
+    </script>
+
+
+    <!-- Custom Styles -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            text-align: center;
+            padding-top: 20%;
+        }
+
+
+        nav {
+            background: #ffb347;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav h1 {
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #333;
+        }
+
+        .marquee {
+            background: #ffe0b2;
+            color: #333;
+            padding: 0.5rem 1rem;
+            overflow: hidden;
+        }
+
+        .marquee p {
+            white-space: nowrap;
+            animation: marquee 10s linear infinite;
+            font-weight: bold;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .loader {
+            position: fixed;
+            inset: 0;
+            background-color: #fff7e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loader-text {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .main {
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .text-animate {
+            font-size: 2.2rem;
+            animation: popIn 1.5s ease-in-out;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .mood-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .mood-btn {
+            padding: 0.8rem 1.5rem;
+            background-color: #ffcc80;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .mood-btn:hover {
+            background-color: #ffa726;
+        }
+
+        .ripple-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple-btn::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        .suggestions {
+            padding: 2rem;
+            /* background-color: #fffaf0; */
+        }
+
+        .suggestions h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            left: 50%;
+            width: 100%;
+        }
+
+        #food-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .team {
+            background: none;
+            padding: 3rem 2rem;
+            text-align: center;
+            justify-content: center;
+
+        }
+
+        .team h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .member {
+            background: #fff4e6;
+            border-radius: 10px;
+            padding: 1rem;
+            width: 180px;
+            transition: transform 0.3s ease;
+        }
+
+        .member:hover {
+            transform: scale(1.05);
+        }
+
+        .member img {
+            width: 100%;
+            border-radius: 50%;
+        }
+
+        .member h3 {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <video id="background-video" autoplay muted loop class="background-video">
+        <source src="foodv.mp4" type="video/mp4">
+    </video>
+
+    <header>
+        <nav>
+            <h1>TasteMood</h1>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Menu</a></li>
+                <li><a href="#">Team</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Marquee -->
+    <div class="marquee">
+        <p>🍔 Happy | 🍜 Lazy | 🍕 Sad | 🍹 Party | 🍰 Craving | 🥗 Healthy | 🍟 Chill | 🌮 Excited | 🍩 Hungry</p>
+    </div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <h1 class="loader-text">Finding your flavor...</h1>
+    </div>
+
+    <!-- Mood Section -->
+    <main class="main" id="main" style="display: none;">
+        <h2 class="text-animate">What's your mood today?</h2>
+        <div class="mood-options">
+            <button class="mood-btn ripple-btn" data-mood="happy">😄 Happy</button>
+            <button class="mood-btn ripple-btn" data-mood="lazy">😴 Lazy</button>
+            <button class="mood-btn ripple-btn" data-mood="sad">😢 Sad</button>
+            <button class="mood-btn ripple-btn" data-mood="party">🎉 Party</button>
+            <button class="mood-btn ripple-btn" data-mood="craving">🍰 Craving</button>
+            <button class="mood-btn ripple-btn" data-mood="healthy">🥗 Healthy</button>
+            <button class="mood-btn ripple-btn" data-mood="chill">🍟 Chill</button>
+            <button class="mood-btn ripple-btn" data-mood="excited">🌮 Excited</button>
+            <button class="mood-btn ripple-btn" data-mood="hungry">🍩 Hungry</button>
+        </div>
+    </main>
+
+    <!-- Suggestions -->
+    <section class="suggestions" id="suggestions">
+        <h2 id="suggestion-title"></h2>
+        <div id="food-list"></div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <h2>Meet the Creators</h2>
+        <div class="team-members">
+            <div class="member">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRsCl_T_CxnWkugTpGxQFPm15fWAIfT-9GzXdNh_s80DGZQ6HO-3Cp65SGO9a8qxvPGtA&usqp=CAU"
+                    alt="Devashree" />
+                <h3>Devashree</h3>
+            </div>
+            <div class="member">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQX26Yrgn2Y3Jzt5Fsq2eFXyKHMIcpCjnWo1cgJyaXGknnIkeoutRiLm_kpgOIMbjsI-s4&usqp=CAU"
+                    alt="Shruti" />
+                <h3>Shruti</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="scripts/loader.js"></script>
+    <script src="scripts/mood.js"></script>
+    <script>
+        // Ripple effect (already present)
+        document.querySelectorAll('.ripple-btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                const circle = document.createElement('span');
+                const diameter = Math.max(btn.clientWidth, btn.clientHeight);
+                const radius = diameter / 2;
+                circle.style.width = circle.style.height = `${diameter}px`;
+                circle.style.left = `${e.clientX - btn.offsetLeft - radius}px`;
+                circle.style.top = `${e.clientY - btn.offsetTop - radius}px`;
+                circle.classList.add('ripple');
+                btn.appendChild(circle);
+                setTimeout(() => circle.remove(), 600);
+
+                // ✅ HIDE TEAM SECTION ON CLICK
+                const teamSection = document.getElementById("team");
+                if (teamSection) {
+                    teamSection.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
